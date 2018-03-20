@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>My_Map</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.23/esri/css/esri.css">
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="https://js.arcgis.com/3.23/"></script>
+    <script>
+      var map;
+    function scheduleJob() {  
+      require(["esri/map","dojo/dom","dojo/on","esri/geometry/Point","dojo/domReady!"], function(Map,dom,on,Point) {
+          on(dom.byId("scheduleJobBtns"), "click", scheduleJobs);
+          map = new Map("map", {
+          basemap: "streets",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
+          center: [116,40], // longitude, latitude
+          zoom: 9
+        });
+     function scheduleJobs() {   
+         var myZoom = dom.byId("inputTitle").value;
+         var myjd = dom.byId("jindu").value;   
+         var mywd = dom.byId("weidu").value;    
+         var myBasemap = dom.byId("fanwei").value;
+         var myPoint = new Point(myjd, mywd);
+         map.setZoom(myZoom);
+         map.centerAt(myPoint);
+         map.setBasemap(myBasemap);
+         }
+      });
+        }
+    </script>
+  </head>
+
+  <body >
+    <div id="map" >
+	    
+        <p style="font-size: 100%;">
+        <input type="button" id="scheduleJobBtn" value="显示地图"  class="submitButton" onclick="scheduleJob()" /> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        我要自己选择！
+         &nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="inputTitle" type="text" value="" placeholder="地图缩放级别" />
+        &nbsp;&nbsp;
+        <input id="jindu" type="text" value="" placeholder="地图范围经度" />
+        &nbsp;&nbsp;
+        <input id="weidu" type="text" value="" placeholder="地图范围纬度" />
+        &nbsp;&nbsp;
+        <input id="fanwei" type="text" value="" placeholder="地图底图选择" />
+        &nbsp;&nbsp;
+        <input type="button" id="scheduleJobBtns" value="biubiubiu~" class="submitButton" onclick="scheduleJos()" /> 
+        </p>
+	</div>
+  </body>
+</html>
